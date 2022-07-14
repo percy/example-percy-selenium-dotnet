@@ -29,3 +29,5 @@ jobs:
           PERCY_POSTINSTALL_BROWSER: true
       - name: Run Tests
         run: make test
+        env:
+          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}

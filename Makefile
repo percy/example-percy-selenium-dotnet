@@ -21,7 +21,7 @@ serve: install
 test: install
 	{ dotnet run --no-restore --project Server & }; \
 	pid=$$!; \
-	$(NPM)/percy exec --dry-run -- dotnet test --no-restore; \
+	$(NPM)/percy exec -- dotnet test --no-restore; \
 	r=$$?; \
 	kill $$pid; \
 	exit $$r
