@@ -4,6 +4,6 @@
     "todomvc-app-css": "^2.3.0"
   },
   "devDependencies": {
-    "@percy/cli": "^1.6.1"
+    "@percy/cli": "^1.16.0"
   }
 }
