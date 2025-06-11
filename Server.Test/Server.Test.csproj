@@ -1,14 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
-    <PackageReference Include="PercyIO.Selenium" Version="1.1.0" />
+    <PackageReference Include="PercyIO.Selenium" Version="2.1.3" />
     <PackageReference Include="Selenium.WebDriver" Version="4.5.1" />
     <PackageReference Include="WebDriverManager" Version="2.14.1" />
     <PackageReference Include="xunit" Version="2.4.1" />
