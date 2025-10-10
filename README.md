@@ -11,7 +11,7 @@ app, forked at commit
 
 This tutorial assumes that you're already familiar with .NET & Selenium and focuses on using them with Percy. You'll still be able to follow along if you're not familiar with .NET & Selenium, but we won't spend time introducing concepts.
 
-This tutorial also assumes you have .NET Core 6.0+, Node, Make, and git installed.
+This tutorial also assumes you have .NET SDK 9.0+, Node, Make, and git installed.
 
 ### Step 1
 
@@ -102,3 +102,13 @@ If you scroll down, you'll see that no other test cases were impacted by our cha
 ### Finished! 😀
 
 From here, you can try making your own changes to the app and tests, if you like. If you do, re-run the tests  and you'll see any visual changes reflected in Percy.
+
+## Notes on dependency updates
+
+During a local update, the project's npm and NuGet dependencies were bumped to current versions to ensure compatibility with modern environments. Notable updates made:
+
+- `@percy/cli` updated to ^1.31.2
+- `todomvc-app-css` updated to ^2.4.3
+- NuGet packages in `Server.Test` updated: `PercyIO.Selenium` -> 2.1.3, `Selenium.WebDriver` -> 4.36.0, `WebDriverManager` -> 2.17.6, test SDKs updated to support .NET 9.
+
+If you run into issues on older runtimes, ensure your local .NET installation matches the target framework in the project files (net9.0) or change the `<TargetFramework>` to a supported version.
