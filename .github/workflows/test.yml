@@ -10,9 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-dotnet@v2
+      - uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: 6.0.x
+          dotnet-version: 9.0.x
       - uses: actions/cache@v3
         with:
           path: ~/.nuget/packages
@@ -21,8 +21,8 @@ jobs:
       - uses: actions/cache@v3
         with:
           path: node_modules
-          key: ${{ runner.os }}/node-16/${{ hashFiles('**/package-lock.json') }}
-          restore-keys: ${{ runner.os }}/node-16/
+          key: ${{ runner.os }}/node-18/${{ hashFiles('**/package-lock.json') }}
+          restore-keys: ${{ runner.os }}/node-18/
       - name: Install Dependencies
         run: make install
         env:
