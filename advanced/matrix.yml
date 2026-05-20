@@ -1,0 +1,77 @@
+# PER-8195 Phase 1 — Selenium-.NET matrix-row mapping (STUB).
+# Test code in Server.Test/AdvancedTest.cs — TO BE WRITTEN.
+
+sdk: selenium-dotnet
+package: PercyIO.Selenium
+language: csharp
+sdk_min_version: '2.1.4'
+cli_min_version: '1.31.10'
+
+rows:
+  # .NET SDK accepts both Dictionary<string,object> and anonymous object.
+  - id: widths
+    state: planned
+    test: 'AdvancedTest > ExercisesWidths'
+  - id: min_height
+    state: planned
+    test: 'AdvancedTest > ExercisesMinHeight'
+  - id: enable_javascript
+    state: planned
+    test: 'AdvancedTest > ExercisesEnableJavaScript'
+  - id: responsive_snapshot_capture
+    state: planned
+    test: 'AdvancedTest > ExercisesResponsiveSnapshotCapture (via responsiveSnapshots array)'
+  - id: readiness_preset
+    state: planned
+    test: 'AdvancedTest > ExercisesReadiness (balanced, disabled, balanced+timeoutMs)'
+  - id: sync
+    state: planned
+    test: 'AdvancedTest > ExercisesSync'
+  - id: percy_css
+    state: planned
+    test: 'AdvancedTest > ExercisesPercyCss via .percy.yml'
+
+  # .NET-specific.
+  - id: anonymous_object_overload
+    state: planned
+    test: 'AdvancedTest > ExercisesAnonymousObjectOverload (Snapshot(driver, name, new { enableJavaScript = true }))'
+  - id: dictionary_overload
+    state: planned
+    test: 'AdvancedTest > ExercisesDictionaryOverload'
+  - id: create_region_helper
+    state: planned
+    test: 'AdvancedTest > ExercisesRegions (via Percy.CreateRegion static helper)'
+  - id: regions
+    state: planned
+    test: 'AdvancedTest > ExercisesRegions'
+
+  # Not exposed in .NET DOM snapshot path (per Percy.Test.cs surface).
+  - id: scope
+    state: n_a
+    reason: 'Not exposed in PercyIO.Selenium 2.1.4 DOM-snapshot surface.'
+  - id: dom_transformation
+    state: n_a
+    reason: 'Not exposed in PercyIO.Selenium 2.1.4 DOM-snapshot surface.'
+  - id: discovery
+    state: n_a
+    reason: 'Per-build only.'
+  - id: labels
+    state: planned
+  - id: test_case
+    state: planned
+  - id: device_pixel_ratio
+    state: planned
+  - id: browsers
+    state: planned
+
+  - id: env_percy_server_address
+    state: planned
+    test: 'CI: advanced job sets PERCY_CLI_API via env'
+  - id: percy_yml_global_config
+    state: planned
+    test: 'global config consumed via .percy.yml'
+  - id: environment_info_reporting
+    state: covered
+    test: 'automatic via PercyIO.Selenium client info'
+
+# Pre-existing basic-example coverage (Server.Test.cs): three bare Percy.Snapshot calls. ReadinessTest.cs exercises readiness preset (balanced, disabled, balanced+timeoutMs).
