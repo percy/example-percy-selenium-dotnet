@@ -1,27 +1,56 @@
-# Advanced Percy + Selenium-.NET example — STUB
+# Advanced Percy + Selenium-.NET example
 
-**Status:** Phase 1 stub. `matrix.yml` is populated based on `PercyIO.Selenium` research. Test code in `Server.Test/AdvancedTest.cs` is **not yet written**.
+This directory exercises the full applicable Percy SDK feature surface for `PercyIO.Selenium`. See the basic example at the repo root for the minimum integration.
 
-See the basic example at the repo root. See [`matrix.yml`](./matrix.yml) for the planned matrix-row coverage.
+## What this example covers
 
-## What this example will cover
+An xUnit suite (`AdvancedTest.cs`) where each `[Fact]` exercises one row of the [Percy SDK Advanced Feature Matrix](../../../docs/advanced-example-feature-matrix.md). Most tests use the `Dictionary<string, object>` options overload; one demonstrates the anonymous-object overload (`new { enableJavaScript = true }`). Global SDK config — readiness preset, default widths, percyCSS, discovery — lives in `.percy.yml`.
 
-Each test will exercise one row of the matrix using BOTH option-passing shapes: `Dictionary<string, object>` and anonymous-object overload (`new { enableJavaScript = true }`). Includes `Percy.CreateRegion` static helper for regions.
+The advanced tests reuse the basic example's ASP.NET `../Server` project at `localhost:8000`. The Makefile starts and stops it.
 
-Note: `scope`, `dom_transformation`, `discovery` are marked `N/A` — not exposed in `PercyIO.Selenium` 2.1.4 DOM-snapshot surface (some exist as Automate-only options on `Percy.Screenshot`).
+Note: `scope`, `domTransformation`, `discovery` are marked `N/A` — not exposed in `PercyIO.Selenium` 2.1.4 DOM-snapshot surface.
 
-## Run locally (once tests are written)
+## Run locally
 
 ```bash
 cd advanced
-# CLI managed separately via npm
-npm install -g @percy/cli
-export PERCY_TOKEN="<your project token>"      # do NOT commit
-npx percy exec -- dotnet test
+make install                       # restores nuget + installs @percy/cli
+export PERCY_TOKEN="<your token>"  # do NOT commit this
+make test
 ```
+
+To run without a real token (CI assertion mode):
+
+```bash
+make test-advanced-ci   # uses --testing + PERCY_TOKEN=fake_token + captures /test/requests
+```
+
+The CI variant asserts every matrix row appears in the captured POST bodies at the local `/test/requests` endpoint. No real Percy build is created.
 
 ## Coverage matrix
 
-Source of truth: [`matrix.yml`](./matrix.yml).
+States: `Covered` / `N/A — <reason>` / `Planned` / `Deprecated`. Source of truth is [`matrix.yml`](./matrix.yml).
 
-> Phase 1 stub: most rows are currently `Planned`. Basic example has three bare `Percy.Snapshot` calls. `ReadinessTest.cs` already exercises readiness preset variants.
+| Feature | State | Test |
+|---|---|---|
+| widths (Dictionary) | Covered | `ExercisesWidths` |
+| minHeight (Dictionary) | Covered | `ExercisesMinHeight` |
+| enableJavaScript (Dictionary) | Covered | `ExercisesEnableJavaScript` |
+| responsiveSnapshotCapture (Dictionary) | Covered | `ExercisesResponsiveSnapshotCapture` |
+| readiness preset (Dictionary) | Covered | `ExercisesReadiness` |
+| sync (Dictionary) | Covered | `ExercisesSync` |
+| labels (Dictionary) | Covered | `ExercisesLabels` |
+| testCase (Dictionary) | Covered | `ExercisesTestCase` |
+| devicePixelRatio (Dictionary) | Covered | `ExercisesDevicePixelRatio` |
+| browsers (Dictionary) | Covered | `ExercisesBrowsers` |
+| regions (Dictionary) | Covered | `ExercisesRegions` |
+| Dictionary<string,object> overload | Covered | 11 `Exercises*` tests use this overload |
+| Anonymous-object overload | Covered | `ExercisesAnonymousObjectOverload` |
+| percyCSS | Covered | global via `.percy.yml` |
+| `.percy.yml` global config | Covered | `.percy.yml` consumed at build start |
+| environment info reporting | Covered | automatic via `PercyIO.Selenium` client info |
+| PERCY_SERVER_ADDRESS via env | Covered | CI advanced job picks up `PERCY_SERVER_ADDRESS` |
+| `Percy.CreateRegion` static helper | Planned | — |
+| `scope` | N/A | Not exposed in SDK 2.1.4 DOM-snapshot surface |
+| `domTransformation` | N/A | Not exposed in SDK 2.1.4 DOM-snapshot surface |
+| `discovery` per-snapshot | N/A | discovery is per-build only |

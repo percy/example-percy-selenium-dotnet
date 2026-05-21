@@ -3,9 +3,18 @@
 Example app showing integration of [Percy](https://percy.io/) visual testing
 into .NET Selenium tests.
 
+> **New:** This repo ships an [`advanced/`](./advanced) example covering the full applicable Percy SDK feature surface for `PercyIO.Selenium`. See the [Percy SDK Feature Matrix](https://docs.percy.io/docs/sdk-feature-matrix) for cross-SDK coverage.
+
 Based on the [TodoMVC](https://github.com/tastejs/todomvc) [VanillaJS](https://github.com/tastejs/todomvc/tree/master/examples/vanillajs)
 app, forked at commit
 [4e301c7014093505dcf6678c8f97a5e8dee2d250](https://github.com/tastejs/todomvc/tree/4e301c7014093505dcf6678c8f97a5e8dee2d250).
+
+## Examples
+
+| Example | What it shows | Run command |
+|---|---|---|
+| `./` (basic, at repo root) | Minimum viable integration: a few `Percy.Snapshot(driver, name)` calls. Start here. | `make test` |
+| [`./advanced/`](./advanced) | Full applicable Percy SDK feature surface: widths, minHeight, enableJavaScript, readiness, responsiveSnapshotCapture, regions, sync, Dictionary vs anonymous-object overloads. xUnit-driven. See [`advanced/README.md`](./advanced/README.md) for the matrix-row coverage table. | `cd advanced && make test` |
 
 ## .NET Tutorial
 
