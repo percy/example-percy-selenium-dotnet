@@ -1,0 +1,78 @@
+# PER-8195 Phase 1 — Selenium-.NET matrix-row mapping.
+# Test code: AdvancedTest.cs (xUnit).
+
+sdk: selenium-dotnet
+package: PercyIO.Selenium
+language: csharp
+sdk_min_version: '2.1.4'
+cli_min_version: '1.31.13'
+
+rows:
+  - id: widths
+    state: covered
+    test: 'AdvancedTests > ExercisesWidths'
+  - id: min_height
+    state: covered
+    test: 'AdvancedTests > ExercisesMinHeight'
+  - id: enable_javascript
+    state: covered
+    test: 'AdvancedTests > ExercisesEnableJavaScript'
+  - id: responsive_snapshot_capture
+    state: covered
+    test: 'AdvancedTests > ExercisesResponsiveSnapshotCapture'
+  - id: readiness_preset
+    state: covered
+    test: 'AdvancedTests > ExercisesReadiness'
+  - id: sync
+    state: covered
+    test: 'AdvancedTests > ExercisesSync'
+  - id: labels
+    state: covered
+    test: 'AdvancedTests > ExercisesLabels'
+  - id: test_case
+    state: covered
+    test: 'AdvancedTests > ExercisesTestCase'
+  - id: device_pixel_ratio
+    state: covered
+    test: 'AdvancedTests > ExercisesDevicePixelRatio'
+  - id: browsers
+    state: covered
+    test: 'AdvancedTests > ExercisesBrowsers'
+  - id: regions
+    state: covered
+    test: 'AdvancedTests > ExercisesRegions'
+  - id: percy_css
+    state: covered
+    test: 'global via .percy.yml snapshot.percy-css'
+
+  # .NET-specific.
+  - id: dictionary_overload
+    state: covered
+    test: 'eleven AdvancedTests use Dictionary<string,object> overload'
+  - id: anonymous_object_overload
+    state: covered
+    test: 'AdvancedTests > ExercisesAnonymousObjectOverload'
+  - id: create_region_helper
+    state: planned
+    test: 'AdvancedTests > ExercisesRegions (via Percy.CreateRegion static helper) — TBD'
+
+  # Not exposed in .NET DOM snapshot path.
+  - id: scope
+    state: n_a
+    reason: 'Not exposed in PercyIO.Selenium 2.1.4 options surface.'
+  - id: dom_transformation
+    state: n_a
+    reason: 'Not exposed in PercyIO.Selenium 2.1.4 options surface.'
+  - id: discovery
+    state: n_a
+    reason: 'discovery is per-build, not per-snapshot in this SDK.'
+
+  - id: env_percy_server_address
+    state: covered
+    test: 'CI: advanced job sets PERCY_SERVER_ADDRESS via env'
+  - id: percy_yml_global_config
+    state: covered
+    test: 'global config consumed via .percy.yml'
+  - id: environment_info_reporting
+    state: covered
+    test: 'automatic via PercyIO.Selenium client info'

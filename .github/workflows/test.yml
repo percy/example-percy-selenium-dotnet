@@ -1,12 +1,20 @@
-name: Test
+name: Tests
+
+# PER-8195: explicitly use `pull_request` only. `pull_request_target` is
+# forbidden — it checks out attacker-controlled code with full secret access.
 on:
   push:
     branches: [master]
   pull_request:
   workflow_dispatch:
+
+# Limit GITHUB_TOKEN to read-only (CodeQL: workflow-does-not-contain-permissions)
+permissions:
+  contents: read
+
 jobs:
-  test:
-    name: Test
+  basic:
+    name: basic
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -31,3 +39,29 @@ jobs:
         run: make test
         env:
           PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+
+  advanced:
+    # PER-8195 advanced example. Runs the advanced suite the same way the
+    # basic job runs its suite — under Percy with the repo's PERCY_TOKEN.
+    # No testing-mode coverage gate or external assertion helper (matches master).
+    name: advanced
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 9.0.x
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Install basic project deps (for Server)
+        run: make install
+        env:
+          PERCY_POSTINSTALL_BROWSER: true
+      - name: Install advanced/ dependencies
+        run: cd advanced && make install
+      - name: Run advanced tests
+        env:
+          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+        run: cd advanced && make test-advanced
